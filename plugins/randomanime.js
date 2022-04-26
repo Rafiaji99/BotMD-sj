@@ -1,12 +1,10 @@
-// RECODE AhmdLui
-
 let fetch = require('node-fetch')
-let handler = async (m, { conn, command, usedPrefix }) => {
-	
-	conn.sendFile(m.chat, await ( await fetch(`https://server-api-rey.herokuapp.com/api/wallpaper/${command}?apikey=apirey`)).buffer(), '', '', m)
-
+let handler = async (m, { conn, usedPrefix, command }) => {
+     m.reply('tunggu...')
+  let res = await (await fetch('https://raw.githubusercontent.com/Luigmntng/RESTAPI/master/data/${command}.json')).json()
+  let anjime = res[Math.floor(Math.random() * res.length)]
+  await conn.sendFile(m.chat, anjime, '', 'cuih 2d', m, false)
 }
-
 handler.help = ['waifu2', 'shota', 'yotsuba', 'shinomiya', 'yumeko', 'tejina', 'chiho', 'boruto', 'kaori', 'shizuka', 'kaga', 'kotori', 'mikasa', 'akiyama', 'gremory', 'isuzu', 'shina', 'kagura', 'shinka', 'eba', 'elaina', 'erza', 'hinata', 'minato', 'naruto', 'sagiri', 'nezuko', 'rize', 'ana', 'deidara', 'yuki', 'asuna', 'ayuzawa', 'chitoge', 'emilia', 'hestia', 'inori', 'itachi', 'madara', 'sakura', 'sasuke', 'tsunade', 'onepiece', 'mobil', 'montor', 'keneki', 'toukachan', 'akira', 'itori', 'kurumi', 'pokemon']
 handler.tags = ['anime']
 handler.command = /^(waifu2|shota|yotsuba|shinomiya|yumeko|tejina|chiho|boruto|kaori|shizuka|kaga|kotori|mikasa|akiyama|gremory|isuzu|shina|kagura|shinka|eba|elaina|erza|hinata|minato|naruto|sagiri|nezuko|rize|ana|deidara|yuki|asuna|ayuzawa|chitoge|emilia|hestia|inori|itachi|madara|sakura|sasuke|tsunade|onepiece|mobil|montor|keneki|toukachan|akira|itori|kurumi|pokemon)$/i
@@ -17,3 +15,7 @@ handler.limit = true
 module.exports = handler
 
 let wm = global.wm
+
+
+//by lui
+//thanks to rey 

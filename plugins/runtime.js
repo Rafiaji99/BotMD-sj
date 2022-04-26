@@ -20,7 +20,7 @@ let handler = async (m, { conn }) => {
     }
     }
 
-   conn.sendBut(m.chat, `Selamat menunaikan ibadah puasa`, `Bot aktip selama ${time}`, 'INFO', '.ping', ftrol)
+   conn.sendBut(m.chat, `Selamat menunaikan ibadah puasa`, `Bot aktip selama ${uptime}`, 'INFO', '.ping', ftrol)
 }
 handler.help = ['runtime']
 handler.tags = ['info']

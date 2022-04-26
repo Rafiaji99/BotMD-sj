@@ -1,8 +1,11 @@
-let handler = async (m, { conn }) => {
-    conn.sendButtonImg(m.chat, global.API('lolhuman', '/api/random/shota', {}, 'apikey'), 'Nih', wm, 'NEXT', '.shota', m)
+let fetch = require('node-fetch')
+let handler = async (m, { conn, usedPrefix, command }) => {
+     m.reply('tunggu...')
+  let res = `https://server-api-rey.herokuapp.com/api/wallpaper/shota?apikey=apirey`
+  await conn.sendButtonImg(m.chat, res, 'Adik saya nih', 'By Lui', 'Next', `.shouta`, m, false)
 }
-handler.help = ['shota']
+handler.help = ['shouta']
 handler.tags = ['anime']
-handler.command = /^(shota)$/i
+handler.command = /^(shouta)$/i
 
 module.exports = handler

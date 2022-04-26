@@ -1,8 +1,9 @@
 let fetch = require('node-fetch')
 let handler = async (m, { conn, usedPrefix, command }) => {
      m.reply('tunggu...')
-  let res = `https://server-api-rey.herokuapp.com/api/wallpaper/shota?apikey=apirey`
-  await conn.sendButtonImg(m.chat, res, 'Adik saya nih', 'By Lui', 'Next', `.shouta`, m, false)
+  let res = await (await fetch('https://raw.githubusercontent.com/Luigmntng/RESTAPI/master/data/shota.json')).json()
+  let cosser = res[Math.floor(Math.random() * res.length)]
+  await conn.sendButtonImg(m.chat, cosser, 'Adik gw nih 😳', 'By Lui', 'Next', `.shouta`, m, false)
 }
 handler.help = ['shouta']
 handler.tags = ['anime']
