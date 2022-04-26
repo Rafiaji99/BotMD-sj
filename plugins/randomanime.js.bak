@@ -1,5 +1,5 @@
 let fetch = require('node-fetch')
-let handler = async (m, { conn, command, usedPrefix }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
      m.reply('tunggu...')
   let res = await (await fetch('https://raw.githubusercontent.com/Luigmntng/RESTAPI/master/data/${command}.json')).json()
   let anjime = res[Math.floor(Math.random() * res.length)]
