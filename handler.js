@@ -589,7 +589,7 @@ module.exports = {
                     if (xp > 200) m.reply('Ngecit -_-') // Hehehe
                     else m.exp += xp
                     if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                        this.sendBut(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, `ini wm`, 'Buy', `.buyall`, m)
+                        this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
                         continue // Limit habis
                     }
                     if (plugin.level > _user.level) {
@@ -707,11 +707,11 @@ module.exports = {
                         } catch (e) {
                         } finally {
                             text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'BEBAN JOIN') :
-                                (chat.sBye || this.bye || conn.bye || 'BEBAN LEFT')
-                                this.sendButtonImg(id, pp, text, 'Recode sj', "BEBAN MENDING OUT", "Nah bagus kalo out", null)
+                                (chat.sBye || this.bye || conn.bye || 'BEBAN LEFT'))
+                                this.sendButtonImg(id, await(await fetch(pp)).buffer(), text, '', "BEBAN MENDING OUT", "Nah bagus kalo out", null)
                                 }
                     }
-                })
+                }
                 break
             case 'promote':
                 text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
