@@ -5,12 +5,12 @@ let handler = async (m, { conn, text }) => {
     else who = m.chat
     if (!who) throw 'Tag salah satu lah'
     let users = global.db.data.users
-    users[who].banned = true
+    users[who].Banneduser = true
     conn.reply(m.chat, `berhasil banned`, m)
 }
-handler.help = ['ban']
+handler.help = ['banuser']
 handler.tags = ['owner']
-handler.command = /^ban$/i
+handler.command = /^banuser$/i
 handler.mods = true
 
 module.exports = handler

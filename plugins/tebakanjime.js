@@ -9,8 +9,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.tebakanime[id][0])
         throw false
     }
-    let res = await fetch('http://zekais-api.herokuapp.com/tebakanime')
-    let json = await res.json()
+    let res = await (await fetch('https://raw.githubusercontent.com/Luigmntng/RESTAPI/master/data/tebakchara.json)).json()
+    let json = res[Math.floor(Math.random() * res.length)]
     let caption = `
 Timeout *${(timeout / 1000).toFixed(2)} detik*
 Ketik ${usedPrefix}wa untuk bantuan
