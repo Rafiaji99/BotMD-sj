@@ -35,11 +35,41 @@ let tags = {
 
 const defaultMenu = {
   before: `
-Here my list menu..... 
+╭─────═[ *INFO PENGGUNA* ]═─────⋆
+│╭───────────────···
+┴│▸ *Name:* %name
+⬡│▸ *Premium:* %prems
+⬡│▸ *Age:* %age
+⬡│▸ *Limit:* %limit
+⬡│▸ *Money:* %money
+⬡│▸ *Role:* %role
+⬡│▸ *Level:* %level [%xp4levelup]
+⬡│▸ *Xp:* %exp / %maxexp
+┬│▸ *Total Xp:* %totalexp
+│╰────────────────···
+┠─────═[ *TODAY* ]═─────⋆
+│╭────────────────···
+┴│    *${ucapan()} %name!*
+⬡│▸ *Tanggal:* %week %weton, %date
+⬡│▸ *Tanggal Islam:* %dateIslamic
+┬│▸ *Waktu:* %time
+│╰────────────────···
+┠─────═[ *BOT INFO* ]═─────⋆
+│╭────────────────···
+┴│▸ *Nama Bot:* %me
+⬡│▸ *Mode:* ${global.opts['self'] ? 'Private' : 'Publik'}
+⬡│▸ *Prefix:* [ ! ]
+⬡│▸ *Speed:* 9999 ms
+⬡│▸ *Battery:* ${conn.battery != undefined ? `${conn.battery.value}% ${conn.battery.live ? '🔌 pengisian' : ''}` : 'tidak diketahui'}
+⬡│▸ *Platform:* Nokia
+⬡│▸ *Uptime:* %uptime (%muptime)
+┬│▸ *Database:* %rtotalreg dari %totalreg
+│╰────────────────···
+╰──────────═┅═──────────
 %readmore`.trimStart(),
-  header: '❏ *%category*',
-  body: '» %cmd %islimit %isPremium',
-  footer: '\n',
+  header: '│╰────────────────···\n┠─────═[ *%category* ]═─────⋆\n│╭────────────────···\n',
+  body: '⬡│» %cmd %islimit %isPremium',
+  footer: '┬│\n│╰────────────────···\n╰──────────═┅═──────────\n',
   after: `
 *%npmname@^%version*
 ${'```%npmdesc```'}
@@ -74,11 +104,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       month: 'long',
       year: 'numeric'
     }).format(d)
-    let time = d.toLocaleTimeString(locale, {
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric'
-    })
+    let time = moment.tz('Asia/Jakarta').format('HH')
     let _uptime = process.uptime() * 1000
     let _muptime
     if (process.send) {
@@ -91,6 +117,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     
     let muptime = clockString(_muptime)
     let uptime = clockString(_uptime)
+    let premium = global.db.data.users[m.sender].premium
+    let prems = `${premium ? 'Yes': 'No'}`
     let totalreg = Object.keys(global.db.data.users).length
     let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
     let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
@@ -148,7 +176,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-      conn.send2But(m.chat, `Abaikan <>`, text.trim(), 'pembuat😱', `.owner`, 'sc😅👆', `.sc`, m)         
+      conn.send2But(m.chat, `✧───────···[ Dashboard ]···──────✧`, text.trim(), 'pembuat😱', `.owner`, 'sc😅👆', `.sc`, m)         
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
@@ -180,4 +208,21 @@ function clockString(ms) {
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+}
+function ucapan() {
+  const time = moment.tz('Asia/Jakarta').format('HH')
+  res = "Selamat dinihari"
+  if (time >= 4) {
+    res = "Selamat pagi 🌄"
+  }
+  if (time > 10) {
+    res = "Selamat siang ☀️"
+  }
+  if (time >= 15) {
+    res = "Selamat sore 🌇"
+  }
+  if (time >= 18) {
+    res = "Selamat malam 🌙"
+  }
+  return res
 }
